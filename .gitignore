@@ -32,3 +32,9 @@
 
 # secrets
 firebase-adminsdk-secret.json
+
+# https://github.com/bkeepers/dotenv#can-i-use-dotenv-in-production
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
