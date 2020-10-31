@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+<% end %>
+
+<%# TODO: name %>
+<h1>Hello Jen</h1>
+<div> Feel free to ask us anything!  </div>
+
+<form id="email-form">
+  <div>
+    <label for="email-form-topic">Subject</label>
+    <input type="text" name="subject" />
+  </div>
+  <div>
+    <label for="email-form-content">Body</label>
+    <textarea type="text" name="body"></textarea>
+  </div>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+  $('#email-form').submit(function(e) {
+    e.preventDefault()
+
+    var subject = $(this).find('[name="subject"]').val()
+    var body = $(this).find('[name="body"]').val()
+
+    // https://www.smtpjs.com/
+    Email.send({
+      SecureToken: '5cd4781e-aea3-4eb3-a20c-f542e5827c5e',
+      To: 'hr@avancevl.com',
+      From: "shrimptrain@gmail.com",
+      Subject: subject,
+      Body: body
+    }).then(
+      message => alert(message)
+    );
+
+    return false
+  })
+</script>
