@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get '/auth/google_oauth2/callback', to: 'sessions#google_oauth2_callback'
+  delete '/auth/google_oauth2', to: 'sessions#destroy'
 
   resources :pages, only: [] do
     collection do
