@@ -2,8 +2,7 @@
   <script src="https://smtpjs.com/v3/smtp.js"></script>
 <% end %>
 
-<%# TODO: name %>
-<h1>Hello Jen</h1>
+<h1>Hello <%= current_user.name %></h1>
 <div> Feel free to ask us anything!  </div>
 
 <form id="email-form">
