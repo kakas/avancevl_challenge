@@ -2,6 +2,31 @@
   <div> question_text: <%= @question.question_text %> </div>
   <div> question_title: <%= @question.question_title %> </div>
   <div> hashtags: <%= @question.hashtags %> </div>
+
+  <form id="answer-form">
+    <label for="answer:">Answer:</label>
+    <input type="text" name="answer" id="answer">
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    $('#answer-form').submit(function(e) {
+      e.preventDefault()
+      var question_id = window.location.pathname.match(/problem\/(.+)/)[1]
+      var answer = $(this).find('[name="answer"]').val()
+
+      var data = {
+        question_id: question_id,
+        answer: answer,
+      }
+
+      $.post("/current_user/answers", data, function(data) {
+        alert(data.result)
+      }, 'json')
+
+      return false
+    })
+  </script>
 <% else %>
   <div><%= @error_message %></div>
 <% end %>

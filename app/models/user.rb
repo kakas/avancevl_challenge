@@ -41,4 +41,28 @@ class User
       instance_variable_set("@#{field}", attrs[field])
     end
   end
+
+  def doc
+    self.class.col.doc(uid)
+  end
+
+  def answer(question, answer)
+    correct = question.answer == answer
+
+    answer_log = {
+      question_id: question.question_id,
+      answer: answer,
+      correct: correct,
+    }
+
+    self.class.col.doc(uid).col('answer_logs').add(answer_log)
+
+    correct
+  end
+
+  def answer_logs
+    LazyObject.new do
+      doc.col('answer_logs').get.map(&:data)
+    end
+  end
 end

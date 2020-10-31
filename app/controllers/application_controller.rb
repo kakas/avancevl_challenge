@@ -5,4 +5,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(uid: session[:user_id])
   end
   helper_method :current_user
+
+  def user_auth
+    return if current_user
+
+    redirect_to root_url, alert: 'Please log in'
+  end
 end

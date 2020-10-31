@@ -18,4 +18,8 @@ Rails.application.routes.draw do
   namespace :filter do
     resources :questions, only: [:index]
   end
+
+  namespace :current_user do
+    resources :answers, only: %i[index create]
+  end
 end
