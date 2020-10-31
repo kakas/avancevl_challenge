@@ -5,5 +5,6 @@ class PagesController < ApplicationController
   end
 
   def mail
+    @name = current_user&.name || 'guest'
   end
 end
