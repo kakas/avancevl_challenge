@@ -19,6 +19,17 @@ class Question
     length
   ].freeze
 
+  SEARCHABLE_FIELDS = %i[
+    topics_algebra
+    topics_geometry
+    topics_trignometry
+    topics_arithmetic
+    calculator
+    answer_type
+    chart
+    length
+  ].freeze
+
   attr_accessor(*FIELDS)
 
   # collection
@@ -31,6 +42,20 @@ class Question
     LazyObject.new do
       question = doc.get
       new(question.data)
+    end
+  end
+
+  # https://googleapis.dev/ruby/google-cloud-firestore/latest/Google/Cloud/Firestore/Query.html
+  def self.where(condition)
+    query = col
+
+    LazyObject.new do
+      if condition.present?
+        condition.each do |field, value|
+          query = query.where(field.to_s, '=', value)
+        end
+      end
+      query.get.map(&:data)
     end
   end
 

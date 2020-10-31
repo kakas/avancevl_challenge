@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   end
 
   resources :problem, only: [:show]
+
+  namespace :filter do
+    resources :questions, only: [:index]
+  end
 end

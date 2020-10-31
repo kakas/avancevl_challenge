@@ -1,0 +1,27 @@
+<form action="#" id="search-form">
+  <% question_type_to_options.each do |type, options| %>
+    <div>
+      <div><%= type %></div>
+      <% options.each do |option| %>
+        <input type="radio" name="<%= type %>" value="<%= option %>">
+        <label><%= option %></label><br>
+      <% end %>
+    </div>
+  <% end %>
+  <input type="submit" value="Submit">
+</form>
+
+Question Count: <div id="question-count"></div>
+
+<script>
+  $('#search-form').submit(function(e) {
+    e.preventDefault()
+
+    $.get("/filter/questions?" + $(this).serialize(), function(data) {
+      $('#question-count').text(data.question_count)
+    }, 'json')
+
+    return false
+  })
+</script>
+
