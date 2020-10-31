@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       get 'mail'
     end
   end
+
+  resources :problem, only: [:show]
 end

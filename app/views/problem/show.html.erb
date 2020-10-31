@@ -1,0 +1,7 @@
+<% if @question %>
+  <div> question_text: <%= @question[:question_text] %> </div>
+  <div> question_title: <%= @question[:question_title] %> </div>
+  <div> hashtags: <%= @question[:hashtags] %> </div>
+<% else %>
+  <div><%= @error_message %></div>
+<% end %>
