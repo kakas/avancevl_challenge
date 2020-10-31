@@ -39,10 +39,8 @@ class Question
 
   def self.find_by(question_id:)
     doc = col.doc(question_id)
-    LazyObject.new do
-      question = doc.get
-      new(question.data)
-    end
+    question = doc.get
+    new(question.data) if question.data
   end
 
   # https://googleapis.dev/ruby/google-cloud-firestore/latest/Google/Cloud/Firestore/Query.html

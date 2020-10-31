@@ -15,7 +15,7 @@ class User
   def self.find_or_create_from_auth_hash(auth_hash)
     info = auth_hash['info']
     user = find_by(uid: auth_hash['uid'])
-    if user.nil?
+    if user
       create(uid: auth_hash['uid'], email: info['email'], name: info['name'])
     else
       user
@@ -32,10 +32,8 @@ class User
   def self.find_by(uid:)
     doc = col.doc(uid)
 
-    LazyObject.new do
-      user = doc.get
-      new(user.data) if user.data
-    end
+    user = doc.get
+    new(user.data) if user.data
   end
 
   def initialize(attrs)
